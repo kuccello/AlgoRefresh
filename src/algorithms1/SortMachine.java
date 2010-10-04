@@ -23,7 +23,48 @@ public class SortMachine {
 
     /**
      * ------------------------
-     * Insertion Sort
+     * Select Sort O(n^2)
+     * ------------------------
+     * Input:   A sequence of n numbers {a1,a2,...,an}
+     *
+     * Output:  A permutation (reordering) {a`1,a`2,...,a`n} of the input
+     *          sequence such that a`1 <= a`2 <= ... <= a`n
+     * -------------------------
+     * Search through A looking for the next smallest number
+     * and place it in A at A[i+1] for i
+     */
+    public List<Integer> selectSort(){
+
+        outputs = new ArrayList<Integer>(inputs);
+
+        int An = outputs.size();
+
+        for(int j = 0; j < An; j++){
+            Integer smallestSeen = outputs.get(j);
+            int currentlySmallestIndex = j;
+
+            for(int i = j + 1; i < An; i++){
+
+                Integer Xj = outputs.get(i);
+
+                if(Xj < smallestSeen){
+                    // new smallest found
+                    smallestSeen = Xj;
+                    currentlySmallestIndex = i;
+                }
+
+            }
+            outputs.add(j,smallestSeen);
+            outputs.remove(currentlySmallestIndex+1);
+            
+        }
+
+        return outputs;
+    }
+
+    /**
+     * ------------------------
+     * Insertion Sort [O(n^2)]
      * -------------------------
      * Input:   A sequence of n numbers {a1,a2,...,an}
      *
