@@ -6,7 +6,6 @@
 package algorithms1;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,6 +19,76 @@ public class SortMachine {
     public SortMachine(List<Integer> input){
         this.inputs = input;
     }
+
+    /**
+     * ------------------------
+     * Merge Sort 
+     * ------------------------
+     * Input:   A sequence of n numbers {a1,a2,...,an}
+     *
+     * Output:  A permutation (reordering) {a`1,a`2,...,a`n} of the input
+     *          sequence such that a`1 <= a`2 <= ... <= a`n
+     * -------------------------
+     * 1. Divide the inputs into two equally sized input arrays
+     * 2. Recursivly sort the the two sub arrays
+     * 3. Combine/Merge the two sorted sub arrays to produce one whole array
+     */
+    public List<Integer> mergeSort(){
+
+        outputs = doMergeSort(inputs);
+
+        return outputs;
+    }
+
+    private List<Integer> doMergeSort(List<Integer> inputs){
+
+        List<Integer> resultSet = new ArrayList<Integer>();
+
+        if(inputs.size()<2){
+            resultSet = inputs;
+        }else if(inputs.size()==2){
+            Integer x0 = inputs.get(0);
+            Integer x1 = inputs.get(1);
+            if(x0 > x1){
+                resultSet.add(x1);
+                resultSet.add(x0);
+            }else{
+                resultSet.add(x0);
+                resultSet.add(x1);
+            }
+        }else if(inputs.size()==3){
+            Integer x0 = inputs.get(0);
+            Integer x1 = inputs.get(1);
+            Integer x2 = inputs.get(2);
+            if(x0 > x1 && x1 > x2){
+                resultSet.add(x2);
+                resultSet.add(x1);
+                resultSet.add(x0);
+            }else if(x2 > x0 && x0 > x1){
+                resultSet.add(x1);
+                resultSet.add(x0);
+                resultSet.add(x2);
+            }else if(x1 > x2 && x2 > x0){
+                resultSet.add(x0);
+                resultSet.add(x2);
+                resultSet.add(x1);
+            }
+        }else{
+System.out.println(""+inputs.size());
+            int midpoint = Math.round(inputs.size()/2);
+System.out.println(""+midpoint);
+            List<Integer> i1 = inputs.subList(0, midpoint);
+            List<Integer> i2 = inputs.subList(midpoint+1, inputs.size());
+
+            i1 = doMergeSort(i1);
+            i2 = doMergeSort(i2);
+
+            i1.addAll(i2);
+            resultSet = i1;
+        }
+        return resultSet;
+    }
+
 
     /**
      * ------------------------

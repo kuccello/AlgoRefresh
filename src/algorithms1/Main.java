@@ -22,10 +22,30 @@ public class Main {
 
         int factor = 10000000;
 
-        analyizeInjectedData( factor );
+        //analyizeInjectedData( factor );
 
-        analyizeSelectedData( factor );
+        //analyizeSelectedData( factor );
 
+        analyizeMergeData( factor );
+
+    }
+
+    private static void analyizeMergeData(int factor) {
+        List<Integer> dataSet = new ArrayList<Integer>(Arrays.asList(5, 2, 4, 8, 6, 1, 3, 9));
+        SortMachine sorte = new SortMachine(dataSet);
+        List<Integer> resultSet = new ArrayList<Integer>(0);
+        Long startTime = System.currentTimeMillis();
+        int c = 0;
+        while (true) {
+            c++;
+            if (c > factor) {
+                break;
+            }
+            resultSet = sorte.mergeSort();
+        }
+        Long timeCost = System.currentTimeMillis() - startTime;
+        Double avgTimeCost = new Double(timeCost) / new Double(factor);
+        displayAnalysis("Merge Sort", factor, dataSet, resultSet, timeCost, avgTimeCost);
     }
 
     private static void analyizeSelectedData(int factor) {
